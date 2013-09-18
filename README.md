@@ -12,7 +12,8 @@ However, bashlock can be used without any external dependencies.
 Features
 --------
 
-   * Uses trap to remove lockfile on exit of script.
+   * Uses trap to remove a lockfile on exit of script.  This is one big
+     advantage over using "lockfile(1)" within the script.
 
    * Writes PID to lockfile and detects if locked process has exited.
 
