@@ -1,0 +1,32 @@
+#!/bin/bash
+#  vim: ts=3 sw=3 ai noet
+#
+#  Lockfile managing code.
+
+function bashlock {
+	if [ "$#" -ne 1 ]; then
+		echo 'usage: bashlock [LOCKFILENAME]' 1>&2
+		return 2
+	fi
+	LOCKFILE="$1"
+
+	echo "$$" >"$LOCKFILE.$$"
+	if ! ln "$LOCKFILE.$$" "$LOCKFILE" 2>/dev/null; then
+		PID=`head -1 "$LOCKFILE"`
+		if [ -z "$PID" ]; then
+			rm -f "$LOCKFILE"
+		else
+			kill -0 "$PID" 2>/dev/null || rm -f "$LOCKFILE"
+		fi
+
+		if ! ln "$LOCKFILE.$$" "$LOCKFILE" 2>/dev/null; then
+			rm -f "$LOCKFILE.$$"
+			return 1
+		fi
+	fi
+
+	rm -f "$LOCKFILE.$$"
+	trap 'rm -f "$LOCKFILE"' EXIT
+
+	return 0
+}

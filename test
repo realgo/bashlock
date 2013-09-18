@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+#  Tests for bashlock
+
+ERRORS=0
+function assert {
+	if ! [ $1 $2 $3 ]; then
+		echo "ASSERTION FAILED at `caller`: $1 $2 $3"
+		let ERRORS=$ERRORS+1
+		return 1
+	fi
+}
+
+. bashlock
+
+bashlock assert "$?" -eq 2 2>/dev/null
+
+bashlock lockfile; assert "$?" -eq 0
+bashlock lockfile; assert "$?" -eq 1
+bashlock lockfile; assert "$?" -eq 1
+rm -f lockfile
+bashlock lockfile; assert "$?" -eq 0
+
+echo "$$" >lockfile
+bashlock lockfile; assert "$?" -eq 1
+bashlock lockfile; assert "$?" -eq 1
+
+bash -c 'echo $$ >lockfile'
+bashlock lockfile; assert "$?" -eq 0
+bashlock lockfile; assert "$?" -eq 1
+
+if [ "$ERRORS" -ne 0 ]; then
+	echo
+	echo "ERROR: $ERRORS errors during testing."
+	exit 1
+fi
+exit 0
