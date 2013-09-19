@@ -37,5 +37,5 @@ Contact Information
 
 Author: Sean Reifschneider <sean+opensource@realgo.com>  
 Date: Wed Sep 18, 2013  
-License: BSD  
+License: 2-Clause BSD  
 Code/Bugs: https://github.com/realgo/bashlock

@@ -6,7 +6,7 @@
 function bashlock {
    # Author: Sean Reifschneider <sean+opensource@realgo.com>  
    # Date: Wed Sep 18, 2013  
-   # License: BSD  
+   # License: 2-Clause BSD
    # Code/Bugs: https://github.com/realgo/bashlock
 	#
    # This is a function that implements a lockfile and exclusive access via
