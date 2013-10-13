@@ -33,5 +33,8 @@ if [ "$ERRORS" -ne 0 ]; then
 	echo
 	echo "ERROR: $ERRORS errors during testing."
 	exit 1
+else
+	echo
+	echo "Tests complete."
+	exit 0
 fi
-exit 0
