@@ -3,7 +3,7 @@
 #
 #  Lockfile managing code.
 
-function bashlock {
+bashlock() {
    # Author: Sean Reifschneider <sean+opensource@realgo.com>  
    # Date: Wed Sep 18, 2013  
    # License: 2-Clause BSD
@@ -33,7 +33,7 @@ function bashlock {
 
 	echo "$$" >"$LOCKFILE.$$"
 	if ! ln "$LOCKFILE.$$" "$LOCKFILE" 2>/dev/null; then
-		PID=`head -1 "$LOCKFILE"`
+		PID=$(head -1 "$LOCKFILE")
 		if [ -z "$PID" ]; then
 			rm -f "$LOCKFILE"
 		else
