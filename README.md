@@ -1,6 +1,6 @@
 bashlock Locking Function for bash
 ==================================
-[![Build Status](https://travis-ci.org/solarkennedy/bashlock.png)](https://travis-ci.org/solarkennedy/bashlock)
+[![Build Status](https://travis-ci.org/linsomniac/bashlock.png)](https://travis-ci.org/linsomniac/bashlock)
 
 This is a function that implements a lockfile and exclusive access via
 that file.  It's a bash function that manages the lockfile via a trap
