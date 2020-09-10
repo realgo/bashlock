@@ -29,6 +29,19 @@ bash -c 'echo $$ >lockfile'
 bashlock lockfile; assert "$?" -eq 0
 bashlock lockfile; assert "$?" -eq 1
 
+BASHLOCKFILE=$(mktemp)
+rm "$BASHLOCKFILE"
+[ ! -e "$BASHLOCKFILE" ]
+assert ! -e "$BASHLOCKFILE"
+bashlock; assert "$?" -eq 0
+assert -e "$BASHLOCKFILE"
+bashlock; assert "$?" -eq 1
+rm -f "$BASHLOCKFILE"
+bashlock; assert "$?" -eq 0
+unset BASHLOCKFILE
+
+bashlock assert "$?" -eq 2 2>/dev/null
+
 if [ "$ERRORS" -ne 0 ]; then
 	echo
 	echo "ERROR: $ERRORS errors during testing."

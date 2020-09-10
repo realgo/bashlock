@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eu
 #  vim: ts=4 sw=4 ai et
 #
 #  Lockfile managing code.
@@ -25,29 +25,31 @@ bashlock() {
     #
     # Done!
 
-    if [ "$#" -ne 1 ]; then
+    [ "$#" -eq 1 ] && BASHLOCKFILE="$1"
+
+    if [ -z "$BASHLOCKFILE" ]; then
         echo 'usage: bashlock [LOCKFILENAME]' 1>&2
+        echo '  BASHLOCKFILE environment variable may be used' 1>&2
         return 2
     fi
-    LOCKFILE="$1"
 
-    echo "$$" >"$LOCKFILE.$$"
-    if ! ln "$LOCKFILE.$$" "$LOCKFILE" 2>/dev/null; then
-        PID=$(head -1 "$LOCKFILE")
+    echo "$$" >"$BASHLOCKFILE.$$"
+    if ! ln "$BASHLOCKFILE.$$" "$BASHLOCKFILE" 2>/dev/null; then
+        PID=$(head -1 "$BASHLOCKFILE")
         if [ -z "$PID" ]; then
-            rm -f "$LOCKFILE"
+            rm -f "$BASHLOCKFILE"
         else
-            kill -0 "$PID" 2>/dev/null || rm -f "$LOCKFILE"
+            kill -0 "$PID" 2>/dev/null || rm -f "$BASHLOCKFILE"
         fi
 
-        if ! ln "$LOCKFILE.$$" "$LOCKFILE" 2>/dev/null; then
-            rm -f "$LOCKFILE.$$"
+        if ! ln "$BASHLOCKFILE.$$" "$BASHLOCKFILE" 2>/dev/null; then
+            rm -f "$BASHLOCKFILE.$$"
             return 1
         fi
     fi
 
-    rm -f "$LOCKFILE.$$"
-    trap 'rm -f "$LOCKFILE"' EXIT
+    rm -f "$BASHLOCKFILE.$$"
+    trap 'rm -f "$BASHLOCKFILE"' EXIT
 
     return 0
 }

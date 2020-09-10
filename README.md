@@ -31,6 +31,11 @@ lockfile name, exit on failure:
     bashlock /var/run/${0##*/}.pid || exit 1
     [Remainder of script code here]
 
+or:
+
+    BASHLOCKFILE=/var/run/${0##*/}.pid
+    bashlock || exit 1
+
 Done!
 
 Contact Information
