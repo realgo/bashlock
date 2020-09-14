@@ -22,8 +22,25 @@ bashlock() {
     #
     #     bashlock /var/run/${0##*/}.pid || exit 1
     #     [Remainder of script code here]
+    # or:
+    # 
+    #     BASHLOCKFILE=/var/run/${0##*/}.pid
+    #     bashlock || exit 1
     #
     # Done!
+    #
+    # Exit Codes
+    # ----------
+    # 
+    # The following exit codes are used:
+    # 
+    #     * 0: Lock successfully obtained
+    # 
+    #     * 1: Lock is held by another process
+    # 
+    #     * 2: Usage error
+    # 
+    #     * 3: Failed to write temporary lockfile
 
     [ "$#" -eq 1 ] && BASHLOCKFILE="$1"
 
@@ -33,7 +50,7 @@ bashlock() {
         return 2
     fi
 
-    echo "$$" >"$BASHLOCKFILE.$$"
+    echo "$$" >"$BASHLOCKFILE.$$" || return 3
     if ! ln "$BASHLOCKFILE.$$" "$BASHLOCKFILE" 2>/dev/null; then
         PID=$(head -1 "$BASHLOCKFILE")
         if [ -z "$PID" ]; then

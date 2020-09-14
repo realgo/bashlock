@@ -38,6 +38,19 @@ or:
 
 Done!
 
+Exit Codes
+----------
+
+The following exit codes are used:
+
+    * 0: Lock successfully obtained
+
+    * 1: Lock is held by another process
+
+    * 2: Usage error
+
+    * 3: Failed to write temporary lockfile
+
 Contact Information
 -------------------
 
