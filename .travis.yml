@@ -2,7 +2,7 @@ jobs:
   include:
     - stage: "Bash Tests"
       language: c
-      script: "bash tests/bashtests"
+      script: "bash tests/bashtest"
     - stage: "Python Tests"
       language: python
       script: "python3 -m pytest tests/*.py"
