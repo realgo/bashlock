@@ -16,7 +16,7 @@ Features
 
    * Writes PID to lockfile and detects if locked process has exited.
 
-   * Provides atomic semantics via "ln".
+   * Provides atomic semantics via "ln"/os.link().
 
    * Unit tests.
 
@@ -37,8 +37,10 @@ bashlock /var/run/${0##*/}.pid || exit 1
 or using an environment variable:
 
 ```bash
-    BASHLOCKFILE=/var/run/${0##*/}.pid
-    bashlock || exit 1
+BASHLOCKFILE=/var/run/${0##*/}.pid
+bashlock || exit 1
+
+# [Remainder of script code here]
 ```
 
 Python:

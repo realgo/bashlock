@@ -1,2 +1,5 @@
 language: c
-script: "bash test"
+script: "bash tests/bashtests"
+
+language: python
+script: "python3 -m pytest tests/*.py"

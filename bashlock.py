@@ -57,6 +57,17 @@ class Bashlock:
         return self.locked
 
     def _break_lock(self):
+        import os
+
         with open(self.lockfile, 'r') as fp:
-            int(fp.readline().strip())
+            data = fp.readline().strip()
+            if data:
+                pid = int(data)
+                try:
+                    os.kill(pid, 0)
+                    #  process exists, cannot break lock
+                    return False
+                except ProcessLookupError:
+                    os.remove(self.lockfile)
+
         self.acquire(try_to_break=False)
