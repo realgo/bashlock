@@ -2,13 +2,11 @@ bashlock Locking Function for bash
 ==================================
 [![Build Status](https://travis-ci.org/solarkennedy/bashlock.png)](https://travis-ci.org/solarkennedy/bashlock)
 
-This is a function that implements a lockfile and exclusive access via
-that file.  It's a bash function that manages the lockfile via a trap
-and is meant to easily be pulled into code to prevent multiple instances
-from running at once.
+This includes both a bash function and Python class that implements
+exclusive locking via a filesystem file.
 
-Another option is to call the script from "run-one" optional package.
-However, bashlock can be used without any external dependencies.
+This is used to prevent multiple instances of a script from running at the 
+same time.
 
 Features
 --------
@@ -28,8 +26,24 @@ Getting Started
 Copy the "bashlock" function into your code and then call it with a
 lockfile name, exit on failure:
 
-    bashlock /var/run/${0##*/}.pid || exit 1
-    [Remainder of script code here]
+Bash:
+
+```bash
+bashlock /var/run/${0##*/}.pid || exit 1
+
+# [Remainder of script code here]
+```
+
+Python:
+
+```python
+from bashlock import Bashlock
+if not Bashlock('/tmp/locktest').acquire():
+    print('Unable to obtain lock')
+    sys.exit(1)
+
+# [Remainder of code here]
+```
 
 Done!
 
