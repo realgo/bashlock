@@ -1,5 +1,8 @@
-language: c
-script: "bash tests/bashtests"
-
-language: python
-script: "python3 -m pytest tests/*.py"
+jobs:
+  include:
+    - stage: "Bash Tests"
+      language: c
+      script: "bash tests/bashtests"
+    - stage: "Python Tests"
+      language: python
+      script: "python3 -m pytest tests/*.py"
