@@ -1,6 +1,6 @@
 bashlock Locking Function for bash
 ==================================
-[![Build Status](https://travis-ci.org/solarkennedy/bashlock.png)](https://travis-ci.org/solarkennedy/bashlock)
+[![Build Status](https://travis-ci.org/realgo/bashlock.png)](https://travis-ci.org/realgo/bashlock)
 
 This includes both a bash function and Python class that implements
 exclusive locking via a filesystem file.
@@ -45,7 +45,25 @@ if not Bashlock('/tmp/locktest').acquire():
 # [Remainder of code here]
 ```
 
+or:
+
+    BASHLOCKFILE=/var/run/${0##*/}.pid
+    bashlock || exit 1
+
 Done!
+
+Exit Codes
+----------
+
+The following exit codes are used:
+
+    * 0: Lock successfully obtained
+
+    * 1: Lock is held by another process
+
+    * 2: Usage error
+
+    * 3: Failed to write temporary lockfile
 
 Contact Information
 -------------------
