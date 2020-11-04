@@ -34,6 +34,13 @@ bashlock /var/run/${0##*/}.pid || exit 1
 # [Remainder of script code here]
 ```
 
+or using an environment variable:
+
+```bash
+    BASHLOCKFILE=/var/run/${0##*/}.pid
+    bashlock || exit 1
+```
+
 Python:
 
 ```python
@@ -44,11 +51,6 @@ if not Bashlock('/tmp/locktest').acquire():
 
 # [Remainder of code here]
 ```
-
-or:
-
-    BASHLOCKFILE=/var/run/${0##*/}.pid
-    bashlock || exit 1
 
 Done!
 
