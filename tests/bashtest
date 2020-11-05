@@ -50,4 +50,5 @@ fi
 
 echo
 echo "Tests complete."
+rm -f lockfile
 exit 0

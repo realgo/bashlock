@@ -56,8 +56,18 @@ if not Bashlock('/tmp/locktest').acquire():
 
 Done!
 
-Exit Codes
-----------
+Running Tests
+-------------
+
+To run the tests:
+
+```bash
+bash tests/bashtest
+python3 -m pytest tests/*.py
+```
+
+Bash Function Exit Codes
+------------------------
 
 The following exit codes are used:
 
