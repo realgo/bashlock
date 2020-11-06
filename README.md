@@ -1,6 +1,6 @@
 bashlock Locking Function for bash
 ==================================
-[![Build Status](https://travis-ci.org/realgo/bashlock.png)](https://travis-ci.org/realgo/bashlock)
+[Build Status](https://github.com/realgo/bashlock/workflows/Tests/badge.svg)
 
 This includes both a bash function and Python class that implements
 exclusive locking via a filesystem file.
