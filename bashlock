@@ -20,11 +20,11 @@ bashlock() {
     # Copy the "bashlock" function into your code and then call it with a
     # lockfile name, exit on failure:
     #
-    #     bashlock /var/run/${0##*/}.pid || exit 1
+    #     bashlock /var/run/lock/${0##*/}.pid || exit 1
     #     [Remainder of script code here]
     # or:
     # 
-    #     BASHLOCKFILE=/var/run/${0##*/}.pid
+    #     BASHLOCKFILE=/var/run/lock/${0##*/}.pid
     #     bashlock || exit 1
     #
     # Done!
